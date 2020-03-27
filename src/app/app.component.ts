@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
     this.cropperRes = this.angularCropper.cropper.getCroppedCanvas().toDataURL('image/jpeg');
   }
 
-  destroy() {
+  destroy(event) {
     this.angularCropper.cropper.destroy();
   }
 

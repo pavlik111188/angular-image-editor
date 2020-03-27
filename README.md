@@ -1,6 +1,6 @@
 # ImageEditor
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.4. <br>
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6. <br>
 Image Editor with using [CropperJS](https://fengyuanchen.github.io/cropperjs/) and [angular-cropperjs](https://github.com/matheusdavidson/angular-cropperjs). Thanks a lot guys :-) <br>
 I researched images croppers for the Angular 6+ (with rotation func) and I found <b>angular-cropperjs</b> only. But they don't have examples. And I decided to fill this gap. I hope, this will be useful for you friend and it will economy your time. Pls click on star :) <br />
 Demo page: [https://pavlik111188.github.io/angular-image-editor/](https://pavlik111188.github.io/angular-image-editor/)

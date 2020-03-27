@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
+      <h1 class="text-center">Angular V9.0.6</h1>
       <h2>Pls choose an image file</h2>
       <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
         <input type="file" name="photo" (change)="onFileSelected($event)" class="sr-only" id="inputImage" accept="image/*">
@@ -33,7 +34,7 @@
   <div class="row" *ngIf="imageUrl" id="actions">
     <div class="col-sm-12">
       <div class="docs-buttons">
-         <h3>Toolbar:</h3>
+        <h3>Toolbar:</h3>
 
         <div class="btn-group">
           <button (click)="zoom('positive')" type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
