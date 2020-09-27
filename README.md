@@ -1,3 +1,4 @@
+if you want a new features, just my patreon https://www.patreon.com/pavlo_salnikov
 # ImageEditor
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6. <br>
