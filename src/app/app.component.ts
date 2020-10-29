@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {CropperComponent} from 'angular-cropperjs';
 
 @Component({
@@ -7,11 +7,12 @@ import {CropperComponent} from 'angular-cropperjs';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
   imageUrl: any;
   cropperRes: string;
   showCropper: boolean;
-
+  savedImg: boolean;
+  resizedBase64: any;
   cropperConfig: object = {
     movable: true,
     scalable: true,
@@ -19,15 +20,39 @@ export class AppComponent implements OnInit {
     viewMode: 2,
     checkCrossOrigin: true
   };
+  text = '';
+  downloadLink = '';
 
   @ViewChild('angularCropper') public angularCropper: CropperComponent;
+  @ViewChild("canvasEl") canvasEl: ElementRef;
+  private context: CanvasRenderingContext2D;
 
   constructor() {
 
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    this.context = (this.canvasEl
+      .nativeElement as HTMLCanvasElement).getContext("2d");
+      this.draw('');
+  }
 
+  private draw(src: string) {
+    this.context.clearRect(0, 0, (this.canvasEl.nativeElement as HTMLCanvasElement).width, (this.canvasEl.nativeElement as HTMLCanvasElement).height);
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      const newW = img.width > 700 && img.height > 700 ? img.width / 3 : img.width;
+      const newH = img.height > 700 && img.width > 700 ? img.height / 3 : img.height;
+      (this.canvasEl.nativeElement as HTMLCanvasElement).width = newW;
+      (this.canvasEl.nativeElement as HTMLCanvasElement).height = newH;
+      this.context.font = "30px Arial";
+      this.context.textBaseline = "middle";
+      this.context.textAlign = "center";
+      this.context.drawImage(img, 0, 0, newW, newH);
+      this.context.fillText(this.text, newW / 2, newH / 2);
+      this.downloadLink = this.canvasEl.nativeElement.toDataURL("image/jpg");
+      }
   }
 
   onFileSelected(event) {
@@ -110,6 +135,11 @@ export class AppComponent implements OnInit {
   reset() {
     this.angularCropper.cropper.reset();
     this.cropperRes = this.angularCropper.cropper.getCroppedCanvas().toDataURL('image/jpeg');
+  }
+
+  saveImg() {
+    this.savedImg = true;
+    this.draw(this.cropperRes);
   }
 
 }
