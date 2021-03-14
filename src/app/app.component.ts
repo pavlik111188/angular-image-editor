@@ -9,6 +9,7 @@ import {CropperComponent} from 'angular-cropperjs';
 
 export class AppComponent implements AfterViewInit {
   imageUrl: any;
+  imageUrls = [];
   cropperRes: string;
   showCropper: boolean;
   savedImg: boolean;
@@ -34,7 +35,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.context = (this.canvasEl
       .nativeElement as HTMLCanvasElement).getContext("2d");
-      this.draw('');
+    this.draw('');
   }
 
   private draw(src: string) {
@@ -58,16 +59,19 @@ export class AppComponent implements AfterViewInit {
   onFileSelected(event) {
     const that = this;
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      that.showCropper = false;
-      reader.onload = (eventCurr: ProgressEvent) => {
-        that.imageUrl = (<FileReader>eventCurr.target).result;
-        setTimeout(function () {
-          that.refreshCrop(that.imageUrl);
-        }, 2000);
-      };
-      reader.readAsDataURL(event.target.files[0]);
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        that.showCropper = false;
+        reader.onload = (eventCurr: ProgressEvent) => {
+          that.imageUrls.push((<FileReader>eventCurr.target).result);
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
     }
+  }
+
+  selectImg(i: number) {
+    this.refreshCrop(this.imageUrls[i]);
   }
 
   refreshCrop(img) {

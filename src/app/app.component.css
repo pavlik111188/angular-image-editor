@@ -156,3 +156,14 @@
     transform: rotate(-360deg);
   }
 }
+
+.thumb {
+  border-radius: 4px;
+  height: 100px;
+  object-fit: contain;
+  width: 100px;
+  border: solid 1px #cccccc;
+  padding: 2px;
+  margin: 3px;
+  cursor: pointer;
+}

@@ -9,7 +9,7 @@
       <h2>Pls choose an image file</h2>
       <div class="btn-group">
         <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
-          <input type="file" name="photo" (change)="onFileSelected($event)" class="sr-only" id="inputImage" accept="image/*">
+          <input type="file" multiple name="photo" (change)="onFileSelected($event)" class="sr-only" id="inputImage" accept="image/*">
           <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="Import image with Blob URLs">
                 <span class="fa fa-upload"></span>
           </span>
@@ -34,6 +34,13 @@
     <div class="col-xs-12 col-sm-3 crop-res">
       <div class="card">
         <div class="card-body">
+          <div *ngIf="imageUrls.length > 0">
+            <h5>Images:</h5>
+            <div>
+              <img *ngFor="let imgUrl of imageUrls; let i = index" [src]="imgUrl" class="thumb" (click)="selectImg(i)" />
+            </div>
+          </div>
+          
           <h5 class="card-title">Toolbar:</h5>
           <div class="docs-buttons">
             <div class="btn-group">
