@@ -151,6 +151,14 @@
                 </span>
               </button>
             </div>
+
+            <div class="btn-group">
+              <button type="button" class="btn btn-success" *ngIf="imageUrl" (click)="mergeAll()">
+                <span class="docs-tooltip" data-toggle="tooltip" title="">
+                  Merge
+                </span>
+              </button>
+            </div>
     
             <div style="display: none;">
               <canvas #canvasEl width=400 height=400></canvas>
@@ -180,9 +188,9 @@
     </div>
     
   </div>
-  <div class="row">
+  <div *ngIf="mergedRes" class="row">
     <div class="col-sm-12">
-      
+      <img [src]="mergedRes" />
     </div>
   </div>
 </div>

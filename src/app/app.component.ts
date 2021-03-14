@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {CropperComponent} from 'angular-cropperjs';
+import mergeImages from 'merge-images';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,8 @@ export class AppComponent implements AfterViewInit {
   };
   text = '';
   downloadLink = '';
+  cropperResults = [];
+  mergedRes: any;
 
   @ViewChild('angularCropper') public angularCropper: CropperComponent;
   @ViewChild("canvasEl") canvasEl: ElementRef;
@@ -53,6 +56,7 @@ export class AppComponent implements AfterViewInit {
       this.context.drawImage(img, 0, 0, newW, newH);
       this.context.fillText(this.text, newW / 2, newH / 2);
       this.downloadLink = this.canvasEl.nativeElement.toDataURL("image/jpg");
+      this.cropperResults.push(this.downloadLink);
       }
   }
 
@@ -144,6 +148,11 @@ export class AppComponent implements AfterViewInit {
   saveImg() {
     this.savedImg = true;
     this.draw(this.cropperRes);
+  }
+
+  mergeAll() {
+    mergeImages(this.cropperResults)
+      .then(b64 => this.mergedRes = b64);
   }
 
 }
